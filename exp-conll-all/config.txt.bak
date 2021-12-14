@@ -1,0 +1,63 @@
+[Run]
+is_test = 0
+is_train = 1
+device-x = cpu
+device = cuda:2
+dict_dir = ./
+word_freq_cutoff = 1
+model_dir = ./
+ext_word_emb_full_path = /data1/yli/paser/domain-dependency-parsers/data/giga.bin
+ext_word_dict_full_path = /data1/yli/paser/domain-dependency-parsers/data/extwords.txt
+inst_num_max = -1
+max_bucket_num = 80
+sent_num_one_batch = 200
+word_num_one_batch = 5000
+is_shared_lstm = 1
+is_gate_lstm = 0
+is_diff_loss = 1
+is_domain_emb = 0
+is_adversary = 1
+is_multi = 0
+is_charlstm = 1
+
+[Test]
+model_eval_num = 0
+
+[Train]
+data_dir = /data1/yli/paser/domain-dependency-parsers/data/PC
+train_files = /data1/yli/paser/domain-dependency-parsers/data/BC/train-bc.conll:/data1/yli/paser/domain-dependency-parsers/data/PB/train-content.conll:/data1/yli/paser/domain-dependency-parsers/data/ZX/train-zx.conll
+dev_files = %(data_dir)s/dev-comment.conll
+test_files = %(data_dir)s/test-comment.conll
+unlabel_train_files = /data1/yli/paser/domain-dependency-parsers/data/Unlabeled-pos/comment-unlabel-pos.conll
+is_dictionary_exist = 1
+train_max_eval_num = 1000
+save_model_after_eval_num = 1
+train_stop_after_eval_num_no_improve = 100
+eval_every_update_step_num = 229
+
+[Network]
+lstm_layer_num = 3
+word_emb_dim = 100
+tag_emb_dim = 100
+domain_emb_dim = 8
+domain_size = 4
+emb_dropout_ratio = 0.33
+lstm_hidden_dim = 400
+lstm_input_dropout_ratio = 0.33
+lstm_hidden_dropout_ratio_for_next_timestamp = 0.33
+mlp_output_dim_arc = 500
+mlp_output_dim_rel = 100
+mlp_input_dropout_ratio = 0.33
+mlp_output_dropout_ratio = 0.33
+
+[Optimizer]
+learning_rate = 2e-3
+decay = .75
+decay_steps = 5000
+beta_1 = .9
+beta_2 = .9
+epsilon = 1e-12
+clip = 5.0
+adversary_lambda_loss = 1
+diff_bate_loss = 0.01
+
